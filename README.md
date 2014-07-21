@@ -1,4 +1,4 @@
 GCD
 ===
 
-Getting and Cleansing Data
+Getting and Cleaning Data
