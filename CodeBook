@@ -2,15 +2,32 @@
 
 #Information about various variables used in run_analysis.R file
 
-#Problem 1
 Read the source directory files of training and test datasets into data tables
-|Source directory	|data table	||
----------	|-----------------	||
-features.txt	|featuresList 	||
-activity_labels.txt	|activityName 	||
-subject_train.txt	|subjectTrain	||
-x_train.txt	|xTrainingSet 	||
-y_train.txt	|xTrainingLabels	||
-subject_test.txt	|subjectTest 	||
-x_test.txt	|xTestSet 	||
-y_test.txt	|xTestLabels 	||
+Source directory    | data table
+features.txt	      | featuresList 
+activity_labels.txt	| activityName 
+subject_train.txt	  | subjectTrain
+x_train.txt	        | xTrainingSet 
+y_train.txt	        | xTrainingLabels
+subject_test.txt  	| subjectTest 
+x_test.txt	        | xTestSet 
+y_test.txt  	      | xTestLabels
+
+trainingDataset     | merged file with all training datasets
+testDataset         | merged file with all test datasets
+trainingTestDataset | final merged dataset including training and test files
+
+
+columnNames         | holdes the column names for each column in trainingTestDataset table
+columnArray         | holds true value for ID, mean, and standard dev
+
+trainingTestDatasetwithoutActivityType  | holds final data without activity type
+tidyAverageData     | holds average data for each activity and each subject
+
+Brief Algorithm
+1. Create data tables by reading the source files. Assign appropriate column names. Merge the training and test data files into single dataset.
+2. Seperate out the columns for mean and stddev. Create a list of ID, mean, and standard deviation.
+3. Merge the final data set with activity name data table to get meaningful names.
+4. Using gsub () for pattern replacement to cleanup column names.
+5. Create a tidy dataset with average of each variable for each activity for each subject.  
+
