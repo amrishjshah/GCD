@@ -4,7 +4,7 @@
 
 #Problem 1
 Read the source directory files of training and test datasets into data tables
-Source directory	|data table	||
+|Source directory	|data table	||
 ---------	|-----------------	||
 features.txt	|featuresList 	||
 activity_labels.txt	|activityName 	||
