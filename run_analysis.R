@@ -98,4 +98,5 @@ trainingTestDatasetwithoutActivityType=trainingTestDataset[,names(trainingTestDa
 tidyAverageData=aggregate(trainingTestDatasetwithoutActivityType[,names(trainingTestDatasetwithoutActivityType) != c('activityId','subjectId')],by=list(activityId=trainingTestDatasetwithoutActivityType$activityId,subjectId = trainingTestDatasetwithoutActivityType$subjectId),mean);
 tidyAverageData= merge(tidyAverageData,activityName,by='activityId',all.x=TRUE);
 write.table(tidyAverageData, './tidyAverageData.txt',row.names=TRUE,sep='\t');
+#Writing Tidy Average Data to tidyAverageData.txt ...Done
 #=========================================
