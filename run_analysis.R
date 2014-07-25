@@ -1,7 +1,7 @@
 #Getting and Cleaning Data Course Work
 
-#Algorithm
 #Problem 1: Merges the training and the test sets to create one data set
+#Algorithm
 #1. Read the data files received from https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip into data frames
 #2. Update data frames with appropriate headers
 #3. Merge various training data sets into single data frame
@@ -45,4 +45,16 @@ testDataset = cbind(xTestLabels,subjectTest,xTestSet);
 trainingTestDataset = rbind(trainingDataset,testDataset);
 
 #trainingTestDataset is single data set with merged output
+
+#Problem 2: Extracts only the measurements on the mean and standard deviation for each measurement
+#Algorithm
+#1. Create a list of column names to derive mean and standard deviation
+#2. Create a list of True values for ID, mean, and standard deviation and false for others
+#3. Create a subset of final dataset (TrainingTestDataset) to include only the required columns
+
+columnNames = colnames (trainingTestDataset);
+columnArray = (grepl("activity..",columnNames) | grepl("subject..",columnNames) | grepl("-mean..",columnNames) & !grepl("-meanFreq..",columnNames) & !grepl("mean..-",columnNames) | grepl("-std..",columnNames) & !grepl("-std()..-",columnNames));
+trainingTestDataset = trainingTestDataset[columnArray==TRUE];
+
+
 
