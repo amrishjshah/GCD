@@ -27,7 +27,7 @@ colnames(xTrainingLabels)="activityId";
 
 #Merge training dataset into single file
 trainingDataset = cbind(xTrainingLabels,subjectTrain,xTrainingSet);
-#=========================================
+
 #read test data files
 subjectTest = read.table('./test/subject_test.txt',header=FALSE);
 xTestSet = read.table('./test/x_test.txt',header=FALSE);
@@ -40,28 +40,51 @@ colnames(xTestLabels)="activityId";
 
 #Merge test dataset into single file
 testDataset = cbind(xTestLabels,subjectTest,xTestSet);
-#=========================================
+
 #Merge training and test data set into one dataset
 trainingTestDataset = rbind(trainingDataset,testDataset);
 
 #trainingTestDataset is single data set with merged output
-
+#=========================================
 #Problem 2: Extracts only the measurements on the mean and standard deviation for each measurement
 #Algorithm
 #1. Create a list of column names to derive mean and standard deviation
 #2. Create a list of True values for ID, mean, and standard deviation and false for others
 #3. Create a subset of final dataset (TrainingTestDataset) to include only the required columns along with the mean and standard deviation
 
-columnNames = colnames (trainingTestDataset);
+columnNames = colnames(trainingTestDataset);
 columnArray = (grepl("activity..",columnNames) | grepl("subject..",columnNames) | grepl("-mean..",columnNames) & !grepl("-meanFreq..",columnNames) & !grepl("mean..-",columnNames) | grepl("-std..",columnNames) & !grepl("-std()..-",columnNames));
 trainingTestDataset = trainingTestDataset[columnArray==TRUE];
-
-
+#=========================================
 #Problem 3: Uses descriptive activity names to name the activities in the data set
 #Algorithm
 #1. Use the descriptive names available in activity labels file by merging the final dataset with the activity labels file on activityID key
 
 trainingTestDataset = merge(trainingTestDataset,activityName,by='activityId',all.x=TRUE);
+#=========================================
+#Problem 4: Appropriately labels the data set with descriptive variable names
+#Algorithm
+#1. Update the column names list with the new activity names
+#2. Update variable names
+#3. Again, update the column names list with updated names
 
+columnNames = colnames(trainingTestDataset);
+for (i in 1:length(columnNames)) 
+{
+  columnNames[i] = gsub("\\()","",columnNames[i])
+  columnNames[i] = gsub("-std$","StdDev",columnNames[i])
+  columnNames[i] = gsub("-mean","Mean",columnNames[i])
+  columnNames[i] = gsub("^(t)","time",columnNames[i])
+  columnNames[i] = gsub("^(f)","freq",columnNames[i])
+  columnNames[i] = gsub("([Gg]ravity)","Gravity",columnNames[i])
+  columnNames[i] = gsub("([Bb]ody[Bb]ody|[Bb]ody)","Body",columnNames[i])
+  columnNames[i] = gsub("[Gg]yro","Gyro",columnNames[i])
+  columnNames[i] = gsub("AccMag","AccMagnitude",columnNames[i])
+  columnNames[i] = gsub("([Bb]odyaccjerkmag)","BodyAccJerkMagnitude",columnNames[i])
+  columnNames[i] = gsub("JerkMag","JerkMagnitude",columnNames[i])
+  columnNames[i] = gsub("GyroMag","GyroMagnitude",columnNames[i])
+};
+colnames(trainingTestDataset) = columnNames;
+#=========================================
 
 
