@@ -75,7 +75,7 @@ for (i in 1:length(columnNames))
   columnNames[i] = gsub("-std$","StdDev",columnNames[i])
   columnNames[i] = gsub("-mean","Mean",columnNames[i])
   columnNames[i] = gsub("^(t)","time",columnNames[i])
-  columnNames[i] = gsub("^(f)","freq",columnNames[i])
+  columnNames[i] = gsub("^(f)","frequency",columnNames[i])
   columnNames[i] = gsub("([Gg]ravity)","Gravity",columnNames[i])
   columnNames[i] = gsub("([Bb]ody[Bb]ody|[Bb]ody)","Body",columnNames[i])
   columnNames[i] = gsub("[Gg]yro","Gyro",columnNames[i])
@@ -87,4 +87,15 @@ for (i in 1:length(columnNames))
 colnames(trainingTestDataset) = columnNames;
 #=========================================
 
+#Problem 5: Creates a second, independent tidy data set with the average of each variable for each activity and each subject. 
+#Algorithm
+#1. Copy the final dataset into a new dataset excluding activity Type column
+#2. Update above file to include average of each variable for each activity and each subject
+#3. Update tidy Average dataset with meaningful names
+#4. Export the tidy Average dataset file to the working directory
 
+trainingTestDatasetwithoutActivityType=trainingTestDataset[,names(trainingTestDataset) != 'activityType'];
+tidyAverageData=aggregate(trainingTestDatasetwithoutActivityType[,names(trainingTestDatasetwithoutActivityType) != c('activityId','subjectId')],by=list(activityId=trainingTestDatasetwithoutActivityType$activityId,subjectId = trainingTestDatasetwithoutActivityType$subjectId),mean);
+tidyAverageData= merge(tidyAverageData,activityName,by='activityId',all.x=TRUE);
+write.table(tidyAverageData, './tidyAverageData.txt',row.names=TRUE,sep='\t');
+#=========================================
