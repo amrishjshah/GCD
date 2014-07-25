@@ -50,11 +50,18 @@ trainingTestDataset = rbind(trainingDataset,testDataset);
 #Algorithm
 #1. Create a list of column names to derive mean and standard deviation
 #2. Create a list of True values for ID, mean, and standard deviation and false for others
-#3. Create a subset of final dataset (TrainingTestDataset) to include only the required columns
+#3. Create a subset of final dataset (TrainingTestDataset) to include only the required columns along with the mean and standard deviation
 
 columnNames = colnames (trainingTestDataset);
 columnArray = (grepl("activity..",columnNames) | grepl("subject..",columnNames) | grepl("-mean..",columnNames) & !grepl("-meanFreq..",columnNames) & !grepl("mean..-",columnNames) | grepl("-std..",columnNames) & !grepl("-std()..-",columnNames));
 trainingTestDataset = trainingTestDataset[columnArray==TRUE];
+
+
+#Problem 3: Uses descriptive activity names to name the activities in the data set
+#Algorithm
+#1. Use the descriptive names available in activity labels file by merging the final dataset with the activity labels file on activityID key
+
+trainingTestDataset = merge(trainingTestDataset,activityName,by='activityId',all.x=TRUE);
 
 
 
