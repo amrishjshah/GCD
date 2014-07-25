@@ -1,0 +1,16 @@
+#Getting and Cleaning Data - Course Work
+
+#Information about various variables used in run_analysis.R file
+
+#Problem 1
+Read the source directory files of training and test datasets into data tables
+|Source directory	|data table	||
+---------	|-----------------	||
+features.txt	|featuresList 	||
+activity_labels.txt	|activityName 	||
+subject_train.txt	|subjectTrain	||
+x_train.txt	|xTrainingSet 	||
+y_train.txt	|xTrainingLabels	||
+subject_test.txt	|subjectTest 	||
+x_test.txt	|xTestSet 	||
+y_test.txt	|xTestLabels 	||
